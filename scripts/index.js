@@ -15,6 +15,13 @@ const profileDescriptionInput = profilePopup.querySelector('.popup__input_type_d
 const profileTitle = document.querySelector('.profile__title')
 const profileDescription = document.querySelector('.profile__description')
 
+//  Элементы связанные с модальным окном добавления карточки
+const cardButton = document.querySelector('.profile__add-button');
+const cardPopup = document.querySelector('.popup_type_new-card');
+const cardFormElement = cardPopup.querySelector('.popup__form');
+const cardNameInput = cardPopup.querySelector('.popup__input_type_card-name');
+const cardLinkInput = cardPopup.querySelector('.popup__input_type_url');
+
 //  Универсальное открытие/закрытие модального окна
 
 const openModal = (popup) => {
@@ -56,12 +63,28 @@ const handleProfileFormSubmit = () => {
 profileButton.addEventListener('click', openProfileModal)
 profileFormElement.addEventListener('submit', (evt) => handleFormSubmit(evt, handleProfileFormSubmit));
 
+//  Модальное окно добавления карточки
+
+const openCardModal = () => {
+    cardNameInput.value = ''
+    cardLinkInput.value = ''
+    openModal(cardPopup)
+}
+
+const handleCardFormSubmit = () => {
+    const newCard = {name: cardNameInput.value, link: cardLinkInput.value}
+    places.append(createCard(newCard));
+    closeModal(cardPopup);
+}
+
+cardButton.addEventListener('click', openCardModal)
+cardFormElement.addEventListener('submit', (evt) => handleFormSubmit(evt, handleCardFormSubmit))
 
 const createCard = ({name, link}) => {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
     const deleteButton = cardElement.querySelector('.card__delete-button');
     const likeButton = cardElement.querySelector('.card__like-button');
-    const cardImage  = cardElement.querySelector('.card__image');
+    const cardImage = cardElement.querySelector('.card__image');
     const cardTitle = cardElement.querySelector('.card__description').querySelector('.card__title');
 
     cardTitle.textContent = name;
