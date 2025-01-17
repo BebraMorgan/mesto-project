@@ -4,6 +4,59 @@ const cardTemplate = document.querySelector('#card-template').content;
 //  Список карточек
 const places = document.querySelector('.places__list');
 
+//  Элементы связанные с модальным окном редактирования профиля
+const profileButton = document.querySelector('.profile__edit-button');
+const profilePopup = document.querySelector('.popup_type_edit');
+const profileFormElement = profilePopup.querySelector('.popup__form');
+const profileNameInput = profilePopup.querySelector('.popup__input_type_name');
+const profileDescriptionInput = profilePopup.querySelector('.popup__input_type_description');
+
+//  Имя и описание профиля
+const profileTitle = document.querySelector('.profile__title')
+const profileDescription = document.querySelector('.profile__description')
+
+//  Универсальное открытие/закрытие модального окна
+
+const openModal = (popup) => {
+    popup.classList.add('popup_is-opened');
+}
+
+const closeModal = (popup) => {
+    popup.classList.remove('popup_is-opened');
+}
+
+// Универсальное закрытие модальных окон
+document.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__close')) {
+        const popup = evt.target.closest('.popup');
+        closeModal(popup);
+    }
+});
+
+// Универсальная обработка формы (для исключения повторения evt.preventDefault())
+const handleFormSubmit = (evt, callback) => {
+    evt.preventDefault();
+    callback();
+};
+
+//  Модальное окно редактирования профиля
+
+const openProfileModal = () => {
+    profileNameInput.value = profileTitle.textContent;
+    profileDescriptionInput.value = profileDescription.textContent;
+    openModal(profilePopup);
+}
+
+const handleProfileFormSubmit = () => {
+    profileTitle.textContent = profileNameInput.value;
+    profileDescription.textContent = profileDescriptionInput.value;
+    closeModal(profilePopup);
+}
+
+profileButton.addEventListener('click', openProfileModal)
+profileFormElement.addEventListener('submit', (evt) => handleFormSubmit(evt, handleProfileFormSubmit));
+
+
 const createCard = ({name, link}) => {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
     const deleteButton = cardElement.querySelector('.card__delete-button');
@@ -21,10 +74,7 @@ const createCard = ({name, link}) => {
 }
 
 //  Рендер карточек
-const renderCards = () => {
-    initialCards.forEach(initialCard => {
-        places.append(createCard(initialCard));
-    })
-}
 
-renderCards()
+initialCards.forEach(initialCard => {
+    places.append(createCard(initialCard));
+})
