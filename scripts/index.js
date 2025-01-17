@@ -28,7 +28,7 @@ const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imageCaption = imagePopup.querySelector('.popup__caption');
 
 //  Добавление анимации модальным окнам
-profilePopup.classList.add('popup_is-animated.');
+profilePopup.classList.add('popup_is-animated');
 cardPopup.classList.add('popup_is-animated');
 imagePopup.classList.add('popup_is-animated');
 
