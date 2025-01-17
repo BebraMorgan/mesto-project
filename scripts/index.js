@@ -22,8 +22,12 @@ const cardFormElement = cardPopup.querySelector('.popup__form');
 const cardNameInput = cardPopup.querySelector('.popup__input_type_card-name');
 const cardLinkInput = cardPopup.querySelector('.popup__input_type_url');
 
-//  Универсальное открытие/закрытие модального окна
+//  Элементы связанные с модальным окном картинки
+const imagePopup = document.querySelector('.popup_type_image');
+const imagePopupPicture = imagePopup.querySelector('.popup__image');
+const imageCaption = imagePopup.querySelector('.popup__caption');
 
+//  Универсальное открытие/закрытие модального окна
 const openModal = (popup) => {
     popup.classList.add('popup_is-opened');
 }
@@ -47,7 +51,6 @@ const handleFormSubmit = (evt, callback) => {
 };
 
 //  Модальное окно редактирования профиля
-
 const openProfileModal = () => {
     profileNameInput.value = profileTitle.textContent;
     profileDescriptionInput.value = profileDescription.textContent;
@@ -64,7 +67,6 @@ profileButton.addEventListener('click', openProfileModal)
 profileFormElement.addEventListener('submit', (evt) => handleFormSubmit(evt, handleProfileFormSubmit));
 
 //  Модальное окно добавления карточки
-
 const openCardModal = () => {
     cardNameInput.value = ''
     cardLinkInput.value = ''
@@ -93,6 +95,15 @@ const createCard = ({name, link}) => {
 
     deleteButton.addEventListener('click', (evt) => evt.target.closest('.card').remove());
     likeButton.addEventListener('click', (evt) => evt.target.classList.toggle('card__like-button_is-active'));
+
+    //  Модальное окно картинки
+    cardImage.addEventListener('click', () => {
+        imagePopupPicture.src = cardImage.src;
+        imagePopupPicture.alt = cardImage.alt;
+        imageCaption.textContent = cardTitle.textContent;
+        openModal(imagePopup);
+    });
+
     return cardElement;
 }
 
