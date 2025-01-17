@@ -27,6 +27,11 @@ const imagePopup = document.querySelector('.popup_type_image');
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imageCaption = imagePopup.querySelector('.popup__caption');
 
+//  Добавление анимации модальным окнам
+profilePopup.classList.add('popup_is-animated.');
+cardPopup.classList.add('popup_is-animated');
+imagePopup.classList.add('popup_is-animated');
+
 //  Универсальное открытие/закрытие модального окна
 const openModal = (popup) => {
     popup.classList.add('popup_is-opened');
