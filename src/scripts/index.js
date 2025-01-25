@@ -2,6 +2,8 @@ import '../pages/index.css';
 import {initialCards} from './cards';
 import Modal from '../components/modal';
 import createCard from '../components/card';
+import enableValidation from "../components/validate";
+
 //  Список карточек
 const places = document.querySelector('.places__list');
 
@@ -37,17 +39,17 @@ cardPopup.classList.add('popup_is-animated');
 imagePopup.classList.add('popup_is-animated');
 
 
-// Универсальное закрытие модальных окон
+//  Универсальное закрытие модальных окон
 document.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup__close')) {
         const popup = evt.target.closest('.popup');
         Modal.closeModal(popup);
     }
 });
-// Универсальное закрытие модальных окон клавишей ESC
+//  Универсальное закрытие модальных окон клавишей ESC
 document.addEventListener('keydown', Modal.closeByEsc);
 
-//  закрытие модальных окон кликом на оверлей
+//  Закрытие модальных окон кликом на оверлей
 const closeByOverlayClick = (popup) => {
     popup.addEventListener('click', (evt) => {
         if (evt.target === popup) {
@@ -56,7 +58,7 @@ const closeByOverlayClick = (popup) => {
     });
 };
 
-// Универсальная обработка формы (для исключения повторения evt.preventDefault())
+//  Универсальная обработка формы (для исключения повторения evt.preventDefault())
 const handleFormSubmit = (evt, callback) => {
     evt.preventDefault();
     callback();
@@ -104,7 +106,7 @@ initialCards.forEach(initialCard => {
     const cardImage = cardElement.querySelector('.card__image');
     const cardTitle = cardElement.querySelector('.card__description .card__title');
 
-    // Модальное окно карточек
+    //  Модальное окно карточек
     cardImage.addEventListener('click', () => {
         imagePopupPicture.src = cardImage.src;
         imagePopupPicture.alt = cardImage.alt;
@@ -114,3 +116,5 @@ initialCards.forEach(initialCard => {
 
     places.append(cardElement);
 })
+//  Включение валидации
+enableValidation();
