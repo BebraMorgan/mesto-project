@@ -6,10 +6,11 @@ const places = document.querySelector('.places__list');
 
 //  Элементы связанные с модальным окном редактирования профиля
 const profileButton = document.querySelector('.profile__edit-button');
+
 const profilePopup = document.querySelector('.popup_type_edit');
-const profileFormElement = profilePopup.querySelector('.popup__form');
-const profileNameInput = profilePopup.querySelector('.popup__input_type_name');
-const profileDescriptionInput = profilePopup.querySelector('.popup__input_type_description');
+const profileForm  = document.forms['edit-profile'];
+const profileNameInput = profileForm.elements.name;
+const profileDescriptionInput = profileForm.elements.description;
 
 //  Имя и описание профиля
 const profileTitle = document.querySelector('.profile__title')
@@ -18,14 +19,17 @@ const profileDescription = document.querySelector('.profile__description')
 //  Элементы связанные с модальным окном добавления карточки
 const cardButton = document.querySelector('.profile__add-button');
 const cardPopup = document.querySelector('.popup_type_new-card');
-const cardFormElement = cardPopup.querySelector('.popup__form');
-const cardNameInput = cardPopup.querySelector('.popup__input_type_card-name');
-const cardLinkInput = cardPopup.querySelector('.popup__input_type_url');
+
+const cardForm = document.forms['new-place'];
+const cardNameInput = cardForm.elements['place-name'];
+const cardLinkInput = cardForm.elements.link;
 
 //  Элементы связанные с модальным окном картинки
 const imagePopup = document.querySelector('.popup_type_image');
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imageCaption = imagePopup.querySelector('.popup__caption');
+
+
 
 //  Добавление анимации модальным окнам
 profilePopup.classList.add('popup_is-animated');
@@ -69,7 +73,7 @@ const handleProfileFormSubmit = () => {
 }
 
 profileButton.addEventListener('click', openProfileModal)
-profileFormElement.addEventListener('submit', (evt) => handleFormSubmit(evt, handleProfileFormSubmit));
+profileForm.addEventListener('submit', (evt) => handleFormSubmit(evt, handleProfileFormSubmit));
 
 //  Модальное окно добавления карточки
 const openCardModal = () => {
@@ -85,7 +89,7 @@ const handleCardFormSubmit = () => {
 }
 
 cardButton.addEventListener('click', openCardModal)
-cardFormElement.addEventListener('submit', (evt) => handleFormSubmit(evt, handleCardFormSubmit))
+cardForm.addEventListener('submit', (evt) => handleFormSubmit(evt, handleCardFormSubmit))
 
 const createCard = ({name, link}) => {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
