@@ -57,12 +57,6 @@ const closeByOverlayClick = (popup) => {
     });
 };
 
-//  Универсальная обработка формы (для исключения повторения evt.preventDefault())
-const handleFormSubmit = (evt, callback) => {
-    evt.preventDefault();
-    callback();
-};
-
 //  Модальное окно редактирования профиля
 const openProfileModal = () => {
     profileNameInput.value = profileTitle.textContent;
@@ -77,7 +71,7 @@ const handleProfileFormSubmit = () => {
 }
 
 profileButton.addEventListener('click', openProfileModal)
-profileForm.addEventListener('submit', (evt) => handleFormSubmit(evt, handleProfileFormSubmit));
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 //  Модальное окно добавления карточки
 const openCardModal = () => {
@@ -93,7 +87,7 @@ const handleCardFormSubmit = () => {
 }
 
 cardButton.addEventListener('click', openCardModal)
-cardForm.addEventListener('submit', (evt) => handleFormSubmit(evt, handleCardFormSubmit))
+cardForm.addEventListener('submit', handleCardFormSubmit)
 
 closeByOverlayClick(profilePopup)
 closeByOverlayClick(imagePopup)
