@@ -1,8 +1,8 @@
 import '../pages/index.css';
-import {initialCards} from './cards';
-import Modal from '../components/modal';
-import createCard from '../components/card';
-import enableValidation from "../components/validate";
+import {initialCards} from '../scripts/cards';
+import Modal from './modal';
+import createCard from './card';
+import enableValidation from "./validate";
 
 //  Список карточек
 const places = document.querySelector('.places__list');
@@ -46,8 +46,7 @@ document.addEventListener('click', (evt) => {
         Modal.closeModal(popup);
     }
 });
-//  Универсальное закрытие модальных окон клавишей ESC
-document.addEventListener('keydown', Modal.closeByEsc);
+
 
 //  Закрытие модальных окон кликом на оверлей
 const closeByOverlayClick = (popup) => {
