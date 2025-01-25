@@ -2,8 +2,6 @@ import '../pages/index.css';
 import {initialCards} from './cards';
 import Modal from '../components/modal';
 import createCard from '../components/card';
-//  Темплейт карточки
-
 //  Список карточек
 const places = document.querySelector('.places__list');
 
@@ -38,6 +36,7 @@ profilePopup.classList.add('popup_is-animated');
 cardPopup.classList.add('popup_is-animated');
 imagePopup.classList.add('popup_is-animated');
 
+
 // Универсальное закрытие модальных окон
 document.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup__close')) {
@@ -45,6 +44,17 @@ document.addEventListener('click', (evt) => {
         Modal.closeModal(popup);
     }
 });
+// Универсальное закрытие модальных окон клавишей ESC
+document.addEventListener('keydown', Modal.closeByEsc);
+
+//  закрытие модальных окон кликом на оверлей
+const closeByOverlayClick = (popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target === popup) {
+            Modal.closeModal(popup);
+        }
+    });
+};
 
 // Универсальная обработка формы (для исключения повторения evt.preventDefault())
 const handleFormSubmit = (evt, callback) => {
@@ -84,6 +94,9 @@ const handleCardFormSubmit = () => {
 cardButton.addEventListener('click', openCardModal)
 cardForm.addEventListener('submit', (evt) => handleFormSubmit(evt, handleCardFormSubmit))
 
+closeByOverlayClick(profilePopup)
+closeByOverlayClick(imagePopup)
+closeByOverlayClick(cardPopup)
 
 //  Рендер карточек
 initialCards.forEach(initialCard => {
