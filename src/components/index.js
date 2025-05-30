@@ -1,56 +1,53 @@
-import '../pages/index.css';
-import {initialCards} from '../scripts/cards';
-import Modal from './modal';
-import createCard from './card';
+import "../pages/index.css";
+import { initialCards } from "../scripts/cards";
+import Modal from "./modal";
+import createCard from "./card";
 import enableValidation from "./validate";
 
 //  Список карточек
-const places = document.querySelector('.places__list');
+const places = document.querySelector(".places__list");
 
 //  Элементы связанные с модальным окном редактирования профиля
-const profileButton = document.querySelector('.profile__edit-button');
+const profileButton = document.querySelector(".profile__edit-button");
 
-const profilePopup = document.querySelector('.popup_type_edit');
-const profileForm = document.forms['edit-profile'];
+const profilePopup = document.querySelector(".popup_type_edit");
+const profileForm = document.forms["edit-profile"];
 const profileNameInput = profileForm.elements.name;
 const profileDescriptionInput = profileForm.elements.description;
 
 //  Имя и описание профиля
-const profileTitle = document.querySelector('.profile__title')
-const profileDescription = document.querySelector('.profile__description')
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
 
 //  Элементы связанные с модальным окном добавления карточки
-const cardButton = document.querySelector('.profile__add-button');
-const cardPopup = document.querySelector('.popup_type_new-card');
+const cardButton = document.querySelector(".profile__add-button");
+const cardPopup = document.querySelector(".popup_type_new-card");
 
-const cardForm = document.forms['new-place'];
-const cardNameInput = cardForm.elements['place-name'];
+const cardForm = document.forms["new-place"];
+const cardNameInput = cardForm.elements["place-name"];
 const cardLinkInput = cardForm.elements.link;
 
 //  Элементы связанные с модальным окном картинки
-const imagePopup = document.querySelector('.popup_type_image');
-const imagePopupPicture = imagePopup.querySelector('.popup__image');
-const imageCaption = imagePopup.querySelector('.popup__caption');
-
+const imagePopup = document.querySelector(".popup_type_image");
+const imagePopupPicture = imagePopup.querySelector(".popup__image");
+const imageCaption = imagePopup.querySelector(".popup__caption");
 
 //  Добавление анимации модальным окнам
-profilePopup.classList.add('popup_is-animated');
-cardPopup.classList.add('popup_is-animated');
-imagePopup.classList.add('popup_is-animated');
-
+profilePopup.classList.add("popup_is-animated");
+cardPopup.classList.add("popup_is-animated");
+imagePopup.classList.add("popup_is-animated");
 
 //  Универсальное закрытие модальных окон
-document.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup__close')) {
-        const popup = evt.target.closest('.popup');
+document.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup__close")) {
+        const popup = evt.target.closest(".popup");
         Modal.closeModal(popup);
     }
 });
 
-
 //  Закрытие модальных окон кликом на оверлей
 const closeByOverlayClick = (popup) => {
-    popup.addEventListener('click', (evt) => {
+    popup.addEventListener("click", (evt) => {
         if (evt.target === popup) {
             Modal.closeModal(popup);
         }
@@ -62,45 +59,47 @@ const openProfileModal = () => {
     profileNameInput.value = profileTitle.textContent;
     profileDescriptionInput.value = profileDescription.textContent;
     Modal.openModal(profilePopup);
-}
+};
 
 const handleProfileFormSubmit = () => {
     profileTitle.textContent = profileNameInput.value;
     profileDescription.textContent = profileDescriptionInput.value;
     Modal.closeModal(profilePopup);
-}
+};
 
-profileButton.addEventListener('click', openProfileModal)
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+profileButton.addEventListener("click", openProfileModal);
+profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 //  Модальное окно добавления карточки
 const openCardModal = () => {
-    cardNameInput.value = ''
-    cardLinkInput.value = ''
-    Modal.openModal(cardPopup)
-}
+    cardNameInput.value = "";
+    cardLinkInput.value = "";
+    Modal.openModal(cardPopup);
+};
 
 const handleCardFormSubmit = () => {
-    const newCard = {name: cardNameInput.value, link: cardLinkInput.value}
+    const newCard = { name: cardNameInput.value, link: cardLinkInput.value };
     places.append(createCard(newCard));
     Modal.closeModal(cardPopup);
-}
+};
 
-cardButton.addEventListener('click', openCardModal)
-cardForm.addEventListener('submit', handleCardFormSubmit)
+cardButton.addEventListener("click", openCardModal);
+cardForm.addEventListener("submit", handleCardFormSubmit);
 
-closeByOverlayClick(profilePopup)
-closeByOverlayClick(imagePopup)
-closeByOverlayClick(cardPopup)
+closeByOverlayClick(profilePopup);
+closeByOverlayClick(imagePopup);
+closeByOverlayClick(cardPopup);
 
 //  Рендер карточек
-initialCards.forEach(initialCard => {
+initialCards.forEach((initialCard) => {
     const cardElement = createCard(initialCard);
-    const cardImage = cardElement.querySelector('.card__image');
-    const cardTitle = cardElement.querySelector('.card__description .card__title');
+    const cardImage = cardElement.querySelector(".card__image");
+    const cardTitle = cardElement.querySelector(
+        ".card__description .card__title",
+    );
 
     //  Модальное окно карточек
-    cardImage.addEventListener('click', () => {
+    cardImage.addEventListener("click", () => {
         imagePopupPicture.src = cardImage.src;
         imagePopupPicture.alt = cardImage.alt;
         imageCaption.textContent = cardTitle.textContent;
@@ -108,6 +107,6 @@ initialCards.forEach(initialCard => {
     });
 
     places.append(cardElement);
-})
+});
 //  Включение валидации
 enableValidation();
