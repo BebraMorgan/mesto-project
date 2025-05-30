@@ -1,0 +1,20 @@
+.profile__edit-icon {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  font-size: 16px;
+  display: flex; /* добавлено */
+  justify-content: center; /* по горизонтали */
+  align-items: center;
+}
+
+.profile__image:hover .profile__edit-icon,
+.profile__image:focus-within .profile__edit-icon {
+  opacity: 1;
+  pointer-events: auto;
+}
