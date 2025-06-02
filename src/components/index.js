@@ -91,10 +91,10 @@ const openProfileModal = () => {
 const handleProfileFormSubmit = (event) => {
   event.preventDefault();
 
-  const originalButtonText = submitProfileFormButton.textContent;
+  Array.from(profileForm.elements).forEach((el) => (el.disabled = true));
 
+  const originalButtonText = submitProfileFormButton.textContent;
   submitProfileFormButton.textContent = "Сохранение...";
-  submitProfileFormButton.disabled = true;
 
   const updatedData = {
     name: profileNameInput.value,
@@ -113,7 +113,7 @@ const handleProfileFormSubmit = (event) => {
     })
     .finally(() => {
       submitProfileFormButton.textContent = originalButtonText;
-      submitProfileFormButton.disabled = false;
+      Array.from(profileForm.elements).forEach((el) => (el.disabled = false));
     });
 };
 
@@ -128,7 +128,7 @@ const handleCardFormSubmit = (event) => {
 
   const originalButtonText = submitCardFormButton.textContent;
   submitCardFormButton.textContent = "Сохранение...";
-  submitCardFormButton.disabled = true;
+  Array.from(cardForm.elements).forEach((el) => (el.disabled = true));
 
   const newCard = {
     name: cardNameInput.value.trim(),
@@ -147,7 +147,7 @@ const handleCardFormSubmit = (event) => {
       Modal.closeModal(cardPopup);
       cardForm.reset();
       submitCardFormButton.textContent = originalButtonText;
-      submitCardFormButton.disabled = false;
+      Array.from(cardForm.elements).forEach((el) => (el.disabled = false));
     });
 };
 const openAvatarModal = () => {
@@ -161,7 +161,7 @@ const handleAvatarFormSubmit = (event) => {
     avatarForm.querySelector(".popup__button").textContent;
   const submitAvatarFormButton = avatarForm.querySelector(".popup__button");
   submitAvatarFormButton.textContent = "Сохранение...";
-  submitAvatarFormButton.disabled = true;
+  Array.from(avatarForm.elements).forEach((el) => (el.disabled = true));
 
   updateAvatarApi({ avatar: avatarLinkInput.value })
     .then((response) => {
@@ -174,7 +174,7 @@ const handleAvatarFormSubmit = (event) => {
     })
     .finally(() => {
       submitAvatarFormButton.textContent = originalButtonText;
-      submitAvatarFormButton.disabled = false;
+      Array.from(avatarForm.elements).forEach((el) => (el.disabled = false));
     });
 };
 const initializeUI = () => {
